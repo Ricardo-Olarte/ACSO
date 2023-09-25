@@ -1,0 +1,181 @@
+	Input 
+	Store N
+	Input
+	Store A
+	Input
+	Store B
+	Store ans
+
+Begin, Load N
+	dividir, Load ans
+			Subt A
+			Store ans
+			Skipcond 800
+			Jump salida
+			Load C
+			Add Uno
+			Store C
+			Jump dividir
+			
+	salida, Skipcond 400
+			Jump cambia
+			Load C
+			Add Uno
+			Store C
+			Output
+			Load Cero
+			Store C
+			Jump print_zero
+
+	print_zero,  Load Zero
+				Output
+				Load N
+			 	Subt Uno
+			 	Store N
+				Skipcond 400
+				Jump restart
+				Halt
+
+	restart, Input
+			 Store A
+			 Input
+			 Store B
+			 Store ans
+			 Skipcond 400
+			 jump dividir
+
+	cambia,	Load C
+			Add Uno
+			Store C
+			Store F
+			Output
+			Jump caso1w1
+			
+
+	caso1w1, Load D
+			Add A
+			Store D
+			
+			Load F
+			Subt Uno
+			Store F
+			Skipcond 800
+			Jump endcaso1w1	
+			Jump caso1w1
+				
+	endcaso1w1, Load D
+			Subt B
+			Store D
+			Store A
+			Jump caso1w2
+
+	caso1w2, Load E
+			Add B
+			Store E
+			Load C
+			Subt Uno
+			Store C
+			Skipcond 800
+			Jump endcaso1w2
+			Jump caso1w2
+			
+	endcaso1w2,	Load E
+			Store B
+			Jump caso1w31
+
+	caso1w31, Load D
+			Subt Cont
+			Store D
+			Skipcond 800
+			Jump endcaso1w31
+			Load C1
+			Add Uno
+			Store C1
+			Jump caso1w31
+
+	endcaso1w31, Skipcond 400
+			Jump nuevo_r
+			Load C1
+			Add Uno
+			Store C1
+			Jump caso1w32
+
+	caso1w32,	Load E
+			Subt Cont
+			Store E
+			Skipcond 800
+			Jump endcaso1w32
+			Load C2
+			Add	Uno
+			Store C2
+			Jump caso1w32
+
+	endcaso1w32,	Skipcond	400
+			Jump nuevo_r
+			Load C2
+			Add	Uno
+			Store C2
+			Jump actualiza
+
+	nuevo_r,		Load		A
+			Store D
+			Load B
+			Store E
+			Load Cero
+			Store C1
+			Store C2
+			Load Cont
+			Add	Uno
+			Store Cont
+			Subt A
+			Skipcond 800
+			Jump endnuevo_r
+			Jump retorna
+
+	endnuevo_r,	Load		Cont
+			Subt B
+			Skipcond 800
+			Jump caso1w31
+			Jump retorna
+
+	actualiza,	Load		C1
+			Store A
+			Load C2
+			Store B
+			Jump nuevo_r		
+				
+	retorna,		Load		Cero	
+			Store C
+			Store D
+			Store E
+			Store F
+			Load Dos
+			Store Cont
+			Load A
+			Subt Uno
+			Skipcond 800
+			Jump fin
+			Load B
+			Store ans
+			Jump dividir		
+
+	fin,	Load	B
+			Output
+			Jump print_zero		
+
+
+A,		DEC		0
+B,		DEC		0
+C,		DEC		0
+D,		DEC		0
+E,		DEC		0
+F,		DEC		0
+N,		DEC		0
+Zero,	DEC		0
+ans,	DEC		0
+Cero,	DEC		0
+Cont,	DEC		2
+Uno,	DEC		1
+C1,		DEC		0
+C2,		DEC		0
+Dos,	DEC		2

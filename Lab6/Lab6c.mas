@@ -1,0 +1,255 @@
+
+	Input
+	Store		A
+	Input
+	Store		B
+	Input
+	Store		C
+	Input		
+	Store		D
+	Input		
+	Store		E
+	
+	Load		A
+	Store		MCD_A
+	Load		B
+	Store		MCD_B
+	JnS		mcd
+	Store		M		/m = mcd(a, b)
+	Output
+	Load		C
+	Store		MCD_A
+	Load		D
+	Store		MCD_B
+	JnS		mcd
+	Store		S		/s = mcd(c, d)
+
+	Load		M
+	Store		MCD_A
+	Load		E
+	Store		MCD_B
+	JnS		mcd		
+	Store		L		/l = mcd(m, e)
+
+	Load		S
+	Store		MCD_A
+	Load		L
+	Store		MCD_B
+	JnS		mcd
+	Store		T		/t = mcd(s, l)
+	Load		T
+	/Output
+
+
+	
+	Load		A
+	Store		DIV_A
+	Load		M/T
+	Store		DIV_B
+	JnS		div
+	Store		F		/f = div(a, t)
+	Output
+
+	Load		B
+	Store		DIV_A
+	Load		M/T
+	Store		DIV_B
+	JnS		div
+	Store		G		/g = div(b, t)
+	Output
+	
+	Load		C
+	Store		DIV_A
+	Load		M/T
+	Store		DIV_B
+	JnS		div
+	Store		H		/h = div(c, t)
+	Output
+	
+	Load		D
+	Store		DIV_A
+	Load		M/T
+	Store		DIV_B
+	JnS		div
+	Store		J		/j = div(d, t)
+	Output
+
+	Load		E
+	Store		DIV_A
+	Load		M/T
+	Store		DIV_B
+	JnS		div
+	Store		K		/k = div(e, t)
+	Output
+	
+	Load		F
+	Add		G
+	Add		H
+	Add		J
+	Add		K
+	Store		F
+	Output
+	Halt
+/FIVE,	Dec		5	
+ONE,	Dec		1
+TWO,	Dec		2
+ZERO,	Dec		0
+A,	Dec		0
+B,	Dec		0
+C,	Dec		0
+D,	Dec		0
+E,	Dec		0
+N,	Dec		0
+M,	Dec		0
+I,	Dec		0
+L,	Dec		0
+F,	Dec		0
+G,	Dec		0
+H,	Dec		0
+J,	Dec		0
+K,	Dec		0
+S,	Dec		0
+T,	Dec		0
+
+
+
+/ funcion mcd(a,b)
+/	mcd = 1;
+/	y = y / 2
+
+
+mcd,			Dec			1
+				Clear
+/				Store		MCD_F
+/				ADD			ONE			/ mcd_f = 0
+				Load		MCD_B
+				Store		DIV_A
+				Load		TWO
+				Store		DIV_B
+				JnS			div
+				Store		Y						/ Y = B/2
+				/Load		Y
+mcd_while,		Store		K2						/ K = Y
+				/Output
+				Skipcond	000							/ K >= 0
+				Jump		mcd_whilebody
+				Jump		mcd_endbody
+mcd_whilebody,	Load		MCD_A
+				Store		MOD_A
+				Load		K2
+				Store		MOD_B
+				JnS			mod
+				Store		RES						/ RES = MOD_A % K
+				Skipcond	400						/ res == 0						
+				Jump		mcd_endif
+				Jump		mcd_if
+mcd_if,			Load		MCD_B
+				Store		MOD_A
+				Load		K2
+				Store		MOD_B
+				JnS			mod		
+				Store		RES_2					/ RES_2 = MOD_B % K
+				Skipcond	400						/ res_2 == 0
+				Jump		mcd_endif
+				Jump		mcd_if_2
+mcd_if_2,		Jump		mcd_endbody
+mcd_endif,		Load		K2
+				Subt		ONE	
+				Store		K2
+				Jump		mcd_while
+mcd_endbody,	Load		MCD_F
+				ADD		K2
+				Store		MCD_F
+				JumpI		mcd
+MCD_F,			Dec		0
+MCD_A,			Dec		0
+MCD_B,			Dec		0
+Y,				Dec		0
+K2,				Dec		0
+RES,			Dec		0
+RES_2,			Dec		0
+
+/ funcion div(a, b)
+/ d = 0
+/ while (a >= b)
+/	a = a - b
+/	d = d + 1
+/ endwhile
+/ return d
+/
+div,		Dec		0
+		Clear
+		Store		DIV_D		/d = 0
+div_while,	Load		DIV_A
+		Subt		DIV_B
+		Skipcond	000
+		Jump		div_whilebody
+		Jump		div_endwhile
+div_whilebody,	Load		DIV_A
+		Subt		DIV_B
+		Store		DIV_A
+		Load		DIV_D
+		Add		ONE
+		Store		DIV_D
+		Jump		div_while
+div_endwhile,	Load		DIV_D
+		JumpI		div
+DIV_A,		Dec		0
+DIV_B,		Dec		0
+DIV_D,		Dec		0
+
+
+
+/ funcion mod(a, b)
+/ while (a >= b)
+/	a = a - b
+/ print a
+
+
+mod,		Dec		0
+mod_while,	Load		MOD_A
+		Subt		MOD_B
+		Skipcond	000
+		Jump		mod_whilebody
+		Jump		mod_endwhile
+mod_whilebody,	Load		MOD_A
+		Subt		MOD_B
+		Store		MOD_A
+		Jump		mod_while
+mod_endwhile,	Load		MOD_A
+		/Output
+		JumpI		mod
+MOD_A,		Dec		0
+MOD_B,		Dec		0
+
+
+/ funcion mul(a, b)
+/ i = 0
+/ m = 0
+/ while (i < b)
+/	m = m + a
+/	i = i + 1
+/ endwhile
+/ return m
+/
+mul,		Dec		0
+		Clear
+		Store		MUL_I		/ i = 0
+		Store		MUL_M		/ m = 0
+mul_while,	Load		MUL_I
+		Subt		MUL_B
+		Skipcond	000		/ i < b?
+		Jump		mul_endwhile
+		Load		MUL_M
+		Add		MUL_A
+		Store		MUL_M
+		Load		MUL_I
+		Add		ONE
+		Store		MUL_I
+		Jump		mul_while
+mul_endwhile,	Load		MUL_M
+		JumpI		mul
+MUL_A,		Dec		0
+MUL_B,		Dec		0
+MUL_I,		Dec		0
+MUL_M,		Dec		0

@@ -1,0 +1,38 @@
+/Elaborado Por: Jose Ricardo olarte Pardo
+
+        Input
+        Store    a
+        Input
+        Store    b
+        Input
+        Store    c
+
+        Load     a
+        Subt     b			/maximo = a - b
+		
+		Skipcond 800		/maximo > 0  --> a > b
+        Jump     else
+        Load     a			/maximo = (a>b)?a:b
+        Jump     endif
+		else,    Load     b
+
+endif,      Store    maximo
+
+        Load    c
+        Subt    maximo
+
+        Skipcond 800		/maximo > 0 --> a > c v b > c
+        Jump     else1
+        Load     c			/maximo = (a>c)?a:c v maximo = (b>c)?b:c
+        Jump     endif1
+else1,       Load     maximo
+
+endif1,      Store    maximo
+
+        Output				/print(maximo)
+        Halt
+
+	a,          DEC     0
+	b,          DEC     0
+	c,          DEC     0
+	maximo,        DEC     0

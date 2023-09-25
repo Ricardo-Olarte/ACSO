@@ -1,0 +1,54 @@
+/*ELABORADO POR: JOSE RICARDO OLARTE PARDO*/
+
+CHIP sum3{
+
+	IN A2, A1, A0, B2, B1, B0;
+	OUT C, S2, S1, S0;
+	
+PARTS:
+
+	Not(in = A2, out = NA2);
+	Not(in = A1, out = NA1);
+	Not(in = A0, out = NA0);
+	Not(in = B2, out = NB2);
+	Not(in = B1, out = NB1);
+	Not(in = B0, out = NB0);
+	Not(in = NAB, out = NNAB);
+
+	And(a = A0, b = B0, out = A0nB0);
+	And(a = A1, b = B1, out = A1nB1);
+	And(a = A2, b = B2, out = A2nB2);
+	And(a = A0, b = A1, out = A0nA1);
+
+	Or(a = A2, b = B2, out = O2);
+	Or(a = A1, b = B1, out = O1);
+	Or(a = NA1, b = NB1, out = NO1);
+	Or(a = NB1, b = NB0, out = NO10);
+
+	Xor(a = A2, b = B2, out = NAB);
+	Xor(a = A1, b = B1, out = XO1);
+
+	And(a = A0nB0, b = O1, out = A0nB0nO1);
+	Or(a = A0nB0nO1, b = A1nB1, out = S3);
+	And(a = O2, b = S3, out = O2nS3);
+	Or(a = O2nS3, b = A2nB2, out = C);
+
+	And(a = NA0, b = NO1, out = NA0nNO1);
+	And(a = NA1, b = NO10, out = NA1nNO10);
+	Or(a = NA0nNO1, b = NA1nNO10, out = S4);
+	And(a = NB1, b = NB0, out = NB1nNB0);
+	Or(a = S4, b = NB1nNB0, out = S5);
+	And(a = NAB, b = S5, out = NABnout3);
+	Or(a = B1, b = A1, out = D);
+	And(a = A0nB0, b = D, out = A0nB0nh);
+	Or(a = A0nB0nh, b = A1nB1, out = E);
+	And(a = NNAB, b = E, out = NNABng);
+	Or(a = NABnout3, b = NNABng, out = S2);
+
+	Xor(a = A0nB0, b = XO1, out = S1);
+	Xor(a = A0, b = B0, out = S0);
+}
+
+
+
+

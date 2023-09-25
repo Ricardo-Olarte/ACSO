@@ -1,0 +1,35 @@
+/*ELABORADO POR: JOSE RICARDO OLARTE PARDO*/
+
+CHIP compare3{
+	IN A2, A1, A0, B2, B1, B0;
+	OUT S1, S0;
+
+PARTS:
+
+	Not(in=B2, out=B02);
+	Not(in=B1, out=B01);
+	Not(in=B0, out=B00);
+
+	Or(a=A2, b=B02, out=X);
+	And(a=A0, b=B00, out=Y);
+	Or(a=A1, b=B01, out=Z);
+	And(a=Z, b=Y, out=I);
+
+	And(a=A1, b=B01, out=J);
+	Or(a=J, b=I, out=K);
+	
+	And(a=A2, b=B02, out=L);
+	And(a=K, b=X, out=M);
+	Or(a=L, b=M, out=S1);
+
+	
+	Xor(a=A1, b=B1, out=N);
+	Not(in=N, out=O);
+	Xor(a=A0, b=B0, out=P);
+	Not(in=P, out=Q);
+	Xor(a=A2, b=B2, out=R);
+	Not(in=R, out=S);
+
+	And(a=O, b=Q, out=T);
+	And(a=T, b=S, out=S0);
+}

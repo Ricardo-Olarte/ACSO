@@ -1,0 +1,88 @@
+/ELABORADO POR: Jose Ricardo Olarte Pardo
+	
+		/ax^2 + bx + c
+		
+        Input
+        Store        a					/read a
+        Input
+        Store        b					/read b
+        Input
+        Store        c					/read c
+        Input
+        Store        x					/read x
+
+        Load        x
+        Store        mult_a				
+        Store        mult_b				/mult_a = x ^ mult_b = x
+
+        JnS        mult					/cont1 = x * x
+        Store        cont1				/cont1 = mult_a * mult_b
+		
+
+        Load        cont1
+        Store        mult_a				/mult_a = x^2
+        Load        a
+        Store        mult_b				/mult_b = a
+
+        JnS        mult					/cont1 = mult_a * mult_b
+        Store        cont1				/cont1 = a * x^2
+
+/cont2 = bx
+
+        Load        b
+        Store        mult_a				/mult_a = b
+        Load        x
+        Store        mult_b				/mult_b = x
+
+        JnS        mult			
+        Store        cont2				/cont2 = b * x
+
+/cont1 = cont1 + cont2
+
+        Load        cont1
+        Add        cont2
+        Store        cont1				/cont1 = ax^2+bx 
+
+/cont2 = cont1 + c
+
+        Load        cont1
+        Add        c
+        Store        cont2				/cont2 = ax^2+bx+c
+
+        Load        cont2				/print(cont2)
+        Output
+        Halt
+a,        DEC        0
+b,        DEC        0
+c,        DEC        0
+x,        DEC        0
+one,        DEC        1
+zero,        DEC        0
+cont1,        DEC        0
+cont2,        DEC        0
+
+mult,         DEC         0
+        Clear
+        Store        mult_j
+        Store        mult_i
+
+mult_k,        Subt        mult_a
+        skipcond    000
+        Jump        mult_endw
+
+        Load        mult_j
+        Add        mult_b
+        Store        mult_j
+
+        Load        mult_i
+        Add        one
+        Store        mult_i
+
+        Jump        mult_k
+
+mult_endw,    Load        mult_j
+        JumpI        mult
+mult_a,        DEC        0
+mult_b,        DEC        0
+mult_i,        DEC        0
+mult_j,        DEC        0

@@ -1,0 +1,69 @@
+program lab09c;
+
+const
+	N = 400;
+type
+	Tbuffer = array [1..N] of integer;
+var
+	buffer: { shared } Tbuffer;
+	inb, outb: { shared } integer;
+
+	sbuffer, sindices: semaphore;
+	nolleno, novacio: semaphore;
+
+process type TPproducer(cant, NN: Integer);
+var
+	dato, i: integer;
+begin
+	dato := 1;
+	for i := 1 to cant do
+	begin
+		wait(nolleno);
+		readln(dato);
+		wait(sbuffer);
+		buffer[inb] := dato;
+		signal(sbuffer);
+		wait(sindices);
+		inb := ((inb + 1) mod NN) + 1;
+		signal(sindices);
+		signal(novacio);
+	end;
+end;
+
+process type TPconsumer(cant, NN: Integer);
+var
+	dato, i: integer;
+begin
+	dato := 1;
+	for i := 1 to cant do
+	begin
+		wait(novacio);
+		wait(sbuffer);
+		dato := buffer[outb];
+		signal(sbuffer);
+		wait(sindices);
+		outb := ((outb + 1) mod NN) + 1;
+		signal(sindices);
+		signal(nolleno);
+		writeln(dato);	
+	end;
+end;
+
+var
+	producer: TPproducer;
+	consumer: TPconsumer;
+	cant, NN: Integer;
+begin
+	readln(cant);
+	readln(NN);
+	inb := 1;
+	outb := 1;
+	initial(sbuffer, 1);
+	initial(sindices, 1);
+	initial(nolleno, 1);
+	initial(novacio, 0); 
+	cobegin
+		producer(cant, NN);
+		consumer(cant, NN);
+	coend;
+end.

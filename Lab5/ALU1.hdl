@@ -1,0 +1,71 @@
+/*ELABORADO POR: JOSE RICARDO OLARTE PARDO*/
+
+CHIP ALU1{
+
+	IN f0,f1,A1,A0,B1,B0;
+	OUT C,C1,C0;
+
+	PARTS:
+	
+		Not(in=f0,out=f00);
+		Not(in=f1,out=f10);
+		Not(in=A0,out=a0);
+		Not(in=A1,out=a1);
+		Not(in=B0,out=b0);
+		Not(in=B1,out=b1);
+	
+	/*OutPut C0*/
+	
+		Xor(a=A0,b=B0,out=A0oB0);
+		And(a=A0oB0,b=f10,out=A0B0f10);
+		And(a=f00f1,b=a0,out=f00f1a0);
+		And(a=f0,b=A0,out=f0A0);
+		And(a=f0A0,b=B0,out=f0A0B0);
+		Or(a=A0B0f10,b=f00f1a0,out=A0B0f10f00f1a0);
+		Or(a=A0B0f10f00f1a0,b=f0A0B0,out=C0);
+		
+	/*OutPut C1*/
+	
+		And(a=f00,b=a1,out=f00a1);
+		And(a=f00a1,b=a0,out=f00a1a0);
+		And(a=f00a1a0,b=B1,out=I);
+		And(a=f00a1,b=B1,out=f00a1B1);
+		And(a=f00a1B1,b=b0,out=J);
+		And(a=f00a1,b=A0,out=f00a1A0);
+		And(a=f00a1A0,b=b1,out=f00a1A0b1);
+		And(a=f00a1A0b1,b=B0,out=K);
+		And(a=f10,b=A1,out=f10A1);
+		And(a=f10A1,b=a0,out=f10A1a0);
+		And(a=f10A1a0,b=b1,out=L);
+		And(a=f10A1,b=b1,out=f10A1b1);
+		And(a=f10A1b1,b=b0,out=M);
+		And(a=f10A1,b=A0,out=f10A1A0);
+		And(a=f10A1A0,b=B1,out=f10A1A0B1);
+		And(a=f10A1A0B1,b=B0,out=N);
+		And(a=f00,b=f1,out=f00f1);
+		And(a=f00f1,b=a1,out=O);
+		And(a=f0,b=f10,out=f0f10);
+		And(a=f0f10,b=B1,out=P);
+		And(a=f0f10,b=A1,out=Q);
+		And(a=f0,b=A1,out=f0A1);
+		And(a=f0A1,b=B1,out=R);
+		Or(a=I,b=J,out=S);
+		Or(a=S,b=K,out=T);
+		Or(a=T,b=L,out=U);
+		Or(a=U,b=M,out=V);
+		Or(a=V,b=N,out=W);
+		Or(a=W,b=O,out=X);
+		Or(a=X,b=P,out=Y);
+		Or(a=Y,b=Q,out=Z);
+		Or(a=Z,b=R,out=C1);
+
+	/*OutPut C*/
+	
+		And(a=A0,b=B0,out=A0B0);
+		Or(a=A0B0,b=B1,out=A0B0B1);
+		And(a=A0B0B1,b=A1,out=A0B0B1A1);
+		And(a=A0B0,b=B1,out=A0B1B0);
+		Or(a=A0B0B1A1,b=A0B1B0,out=A0B0B1A1A0B1B0);
+		And(a=f00,b=f10,out=f00f10);
+		And(a=f00f10,b=A0B0B1A1A0B1B0,out=C);
+}

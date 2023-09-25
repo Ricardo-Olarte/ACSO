@@ -1,0 +1,41 @@
+program lab09a;
+const N = 200;
+type
+ Tvector = array [1..2000] of integer; 
+ Tmin = array [1..N] of integer;
+var
+ vM:Tmin;
+ v:Tvector;
+process type Tminimo(inf,sup,ind:integer);
+
+var 
+ i,m:integer;
+begin
+   m:=v[inf];
+   for i:= inf + 1 to sup do
+      if v[i] < m then
+        m := v[i];
+   vM[ind]:=m;
+end;
+type  Tprocess = array [1..N] of Tminimo;
+   
+var
+ processes: Tprocess;
+ cant,pro,j,x,min,i:integer;
+begin
+  readln(cant);
+  readln(pro);
+  for j:=1 to cant do
+    begin
+        readln(v[j]);
+    end;
+  cobegin
+    for i:=1 to pro do
+        processes[i]((i-1)*(cant div pro)+1,(i*(cant div pro)),i);
+  coend;
+ min:=vM[1];
+ for x:=2 to pro do
+    if vM[x]<min then
+      min:=vM[x];
+  writeln(min);
+end.
