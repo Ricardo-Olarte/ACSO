@@ -1,0 +1,12 @@
+// Autor: Jose Ricardo Olarte Pardo
+
+CHIP subtract{
+
+   IN ah[16],al[16],bh[16],bl[16];
+   OUT ch[16],cl[16];
+   
+   PARTS:
+   
+   complement2(in = b, out = complementado);
+   Add16(a = a, b = complementado, out = out);
+}

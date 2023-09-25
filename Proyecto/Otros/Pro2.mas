@@ -1,0 +1,292 @@
+		Input
+		Store		times
+		Load		times
+for,		Skipcond	400
+		Jump		for_b
+		Jump		for_end
+for_b,		Load		times
+		Subt		UNO
+		Store		times
+		Input
+		Store		OnA
+		Input
+		Store		OnB
+		Load		OnB
+		Add		UNO
+		Store		OnB
+
+		Load		OnA
+		Store		priA
+		Load		OnB
+		Store		priB
+		Jns		pri
+		Store		priR
+		Load		priR
+		Output
+		Load		times
+		Jump		for
+
+for_end,		Clear
+		Halt
+
+UNO,		Dec		1
+times,		Dec		0
+OnA,		Dec		0
+OnB,		Dec		0
+priR,		Dec		0
+	
+		
+pri,		Dec		0
+		Clear
+		Store		cont
+pri_for,		Load		priA
+		Store		DIV_A
+		Load		DOS
+		Store		DIV_B
+		Jns		div
+		Store		priA2
+		Load		priA
+		Subt		priB
+		Skipcond	000
+		Jump		pri_end
+		Jump		body_for
+body_for,	Load		priA
+		Store		es2
+		Jns		is2
+		Store		cont2
+		Load		cont
+		Add		cont2
+		Store		cont
+
+		Load		priA
+		Store		es3
+		Jns		is3
+		Store		cont3
+		Load		cont
+		Add		cont3
+		Store		cont
+
+		Load		priA
+		Store		es5
+		Jns		is5
+		Store		cont5
+		Load		cont
+		Add		cont5
+		Store		cont
+		
+		Clear		
+		Store		CONTPRI
+		Load		CONTPRI
+		Add		INI_PRI
+		Store		CONTPRI		
+
+while_pri,	Load		priA
+		Store		MOD_A
+		Load		CONTPRI
+		Store		MOD_B
+		Jns		mod
+		Store		contmod
+		Load		contmod
+		Skipcond	400
+		Jump		while_body
+		Jump		end_ifprimos
+
+while_body,	Load		CONTPRI
+		Add		UNO
+		Store		CONTPRI
+		Load		CONTPRI
+		Subt		priA2
+		Skipcond	400
+		Jump		while_pri
+		Jump		while_end
+		
+while_end,	Load		cont
+		Add		UNO
+		Store		cont
+		Jump		end_ifprimos
+				
+end_ifprimos,	Load		priA
+		Add		UNO
+		Store		priA
+		Load		priA
+		Jump		pri_for
+
+pri_end,		Load		cont
+		JumpI		pri
+
+DOS,		Dec		2
+INI_PRI,		Dec		2
+CONTPRI,		Dec		0
+TRES,		Dec		3
+CINCO,		Dec		5
+SIETE,		Dec		7
+priA,		Dec		0
+priA2,		Dec		0
+priB,		Dec		0
+cont,		Dec		0
+cont2,		Dec		0
+cont3,		Dec		0
+cont5,		Dec		0
+cont7,		Dec		0
+contmod,		Dec		0
+
+is2,		Dec		0
+		Clear
+		Store		D
+		Load		es2
+		Subt		DOS
+		Store		total2
+		Skipcond	400
+		Jump		if_end2
+		Jump		if_body2
+
+if_body2,	Load		D
+		Add		UNO
+		Store		D
+		Jump		if_end2
+
+if_end2,		Load		D
+		JumpI		is2
+
+D,		Dec		0
+es2,		Dec		0
+total2,		Dec		0
+
+is3,		Dec		0
+		Clear
+		Store		T
+		Load		es3
+		Load		TRES
+		Load		es3
+		Subt		TRES
+		Store		total3
+		Skipcond	400
+		Jump		if_end3
+		Jump		if_body3
+
+if_body3,	Load		T
+		Add		UNO
+		Store		T
+		Jump		if_end3
+
+if_end3,		Load		T
+		JumpI		is3
+
+T,		Dec		0
+es3,		Dec		0
+total3,		Dec		0
+
+is5,		Dec		0
+		Clear
+		Store		C
+		Load		es5
+		Subt		CINCO
+		Store		total5
+		Skipcond	400
+		Jump		if_end5
+		Jump		if_body5
+
+if_body5,	Load		C
+		Add		UNO
+		Store		C
+		Jump		if_end5
+
+if_end5,		Load		C
+		JumpI		is5
+
+C,		Dec		0
+es5,		Dec		0
+total5,		Dec		0
+
+is7,		Dec		0
+		Clear
+		Store		S
+		Load		es7
+		Subt		SIETE
+		Store		total7
+		Skipcond	400
+		Jump		if_end7
+		Jump		if_body7
+
+if_body7,	Load		S
+		Add		UNO
+		Store		S
+		Jump		if_end7
+
+if_end7,		Load		S
+		JumpI		is7
+
+S,		Dec		0
+es7,		Dec		0
+total7,		Dec		0
+
+
+div,		Dec		0
+		Clear		
+		Store		DIV_D
+
+div_while,	Load		DIV_A
+		Subt		DIV_B
+		Skipcond	000
+		Jump		div_whilebody
+		Jump 		div_endwhile
+
+div_whilebody,	Load		DIV_A
+		Subt		DIV_B
+		Store		DIV_A
+		Load		DIV_D
+		Add		UNO
+		Store		DIV_D
+		Jump		div_while
+
+div_endwhile,	Load		DIV_D
+		JumpI		div
+
+DIV_A,		Dec		0
+DIV_B,		Dec		0
+DIV_D,		Dec		0
+
+
+mod,		Dec		0
+
+mod_while,	Load		MOD_A
+		Subt		MOD_B
+		Skipcond	000
+		Jump		mod_whilebody
+		Jump		mod_endwhile
+
+mod_whilebody,	Load		MOD_A
+		Subt		MOD_B
+		Store		MOD_A
+		Jump		mod_while
+
+mod_endwhile,	Load		MOD_A
+		JumpI		mod
+
+MOD_A,		Dec		0
+MOD_B,		Dec		0
+
+mul,    	Dec    0
+        	Clear
+        	Store  	MUL_I
+        	Store 	MUL_M
+
+mul_while,    	Load	MUL_I
+      	  	Subt    MUL_B
+        		Skipcond    000
+	        	Jump 	mul_endwhile
+        		Load  	MUL_M
+	        	Add   	MUL_A
+        		Store 	MUL_M
+	        	Load   	MUL_I
+        		Add     UNO
+	        	Store  	MUL_I
+        		Jump  	mul_while
+
+mul_endwhile,  	Load  	MUL_M
+      	  	JumpI 	mul
+
+MUL_A,        Dec        0
+MUL_B,        Dec        0
+MUL_I,        Dec        0
+MUL_M,        Dec        0

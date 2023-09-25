@@ -1,0 +1,110 @@
+CHIP complement2 {
+
+	IN a2[16], a1[16], a0[16];
+	
+	OUT b2[16], b1[16], b0[16];
+
+	PARTS:
+	Not(in = a0[0], out = nota00);
+	Not(in = a0[1], out = nota01);
+	Not(in = a0[2], out = nota02);
+	Not(in = a0[3], out = nota03);
+	Not(in = a0[4], out = nota04);
+	Not(in = a0[5], out = nota05);
+	Not(in = a0[6], out = nota06);
+	Not(in = a0[7], out = nota07);
+	Not(in = a0[8], out = nota08);
+	Not(in = a0[9], out = nota09);
+	Not(in = a0[10], out = nota010);
+	Not(in = a0[11], out = nota011);
+	Not(in = a0[12], out = nota012);
+	Not(in = a0[13], out = nota013);
+	Not(in = a0[14], out = nota014);
+	Not(in = a0[15], out = nota015);
+
+	Not(in = a1[0], out = nota10);
+	Not(in = a1[1], out = nota11);
+	Not(in = a1[2], out = nota12);
+	Not(in = a1[3], out = nota13);
+	Not(in = a1[4], out = nota14);
+	Not(in = a1[5], out = nota15);
+	Not(in = a1[6], out = nota16);
+	Not(in = a1[7], out = nota17);
+	Not(in = a1[8], out = nota18);
+	Not(in = a1[9], out = nota19);
+	Not(in = a1[10], out = nota110);
+	Not(in = a1[11], out = nota111);
+	Not(in = a1[12], out = nota112);
+	Not(in = a1[13], out = nota113);
+	Not(in = a1[14], out = nota114);
+	Not(in = a1[15], out = nota115);
+
+	Not(in = a2[0], out = nota20);
+	Not(in = a2[1], out = nota21);
+	Not(in = a2[2], out = nota22);
+	Not(in = a2[3], out = nota23);
+	Not(in = a2[4], out = nota24);
+	Not(in = a2[5], out = nota25);
+	Not(in = a2[6], out = nota26);
+	Not(in = a2[7], out = nota27);
+	Not(in = a2[8], out = nota28);
+	Not(in = a2[9], out = nota29);
+	Not(in = a2[10], out = nota210);
+	Not(in = a2[11], out = nota211);
+	Not(in = a2[12], out = nota212);
+	Not(in = a2[13], out = nota213);
+	Not(in = a2[14], out = nota214);
+	Not(in = a2[15], out = nota215);
+
+	HalfAdder(a = nota00, b = true, sum = b0[0], carry = carry1);
+
+	FullAdder(a=nota01, b=false, c=carry1, sum=b0[1], carry=carry2);
+	FullAdder(a=nota02, b=false, c=carry2, sum=b0[2], carry=carry3);
+	FullAdder(a=nota03, b=false, c=carry3, sum=b0[3], carry=carry4);
+	FullAdder(a=nota04, b=false, c=carry4, sum=b0[4], carry=carry5);
+	FullAdder(a=nota05, b=false, c=carry5, sum=b0[5], carry=carry6);
+	FullAdder(a=nota06, b=false, c=carry6, sum=b0[6], carry=carry7);
+	FullAdder(a=nota07, b=false, c=carry7, sum=b0[7], carry=carry8);
+	FullAdder(a=nota08, b=false, c=carry8, sum=b0[8], carry=carry9);
+	FullAdder(a=nota09, b=false, c=carry9, sum=b0[9], carry=carry10);
+	FullAdder(a=nota010, b=false, c=carry10, sum=b0[10], carry=carry11);
+	FullAdder(a=nota011, b=false, c=carry11, sum=b0[11], carry=carry12);
+	FullAdder(a=nota012, b=false, c=carry12, sum=b0[12], carry=carry13);
+	FullAdder(a=nota013, b=false, c=carry13, sum=b0[13], carry=carry14);
+	FullAdder(a=nota014, b=false, c=carry14, sum=b0[14], carry=carry15);
+	FullAdder(a=nota015, b=false, c=carry15, sum=b0[15], carry=carry16);
+
+	FullAdder(a=nota10, b=false, c=carry16, sum=b1[0], carry=carry17);
+	FullAdder(a=nota11, b=false, c=carry17, sum=b1[1], carry=carry18);
+	FullAdder(a=nota12, b=false, c=carry18, sum=b1[2], carry=carry19);
+	FullAdder(a=nota13, b=false, c=carry19, sum=b1[3], carry=carry20);
+	FullAdder(a=nota14, b=false, c=carry20, sum=b1[4], carry=carry21);
+	FullAdder(a=nota15, b=false, c=carry21, sum=b1[5], carry=carry22);
+	FullAdder(a=nota16, b=false, c=carry22, sum=b1[6], carry=carry23);
+	FullAdder(a=nota17, b=false, c=carry23, sum=b1[7], carry=carry24);
+	FullAdder(a=nota18, b=false, c=carry24, sum=b1[8], carry=carry25);
+	FullAdder(a=nota19, b=false, c=carry25, sum=b1[9], carry=carry26);
+	FullAdder(a=nota110, b=false, c=carry26, sum=b1[10], carry=carry27);
+	FullAdder(a=nota111, b=false, c=carry27, sum=b1[11], carry=carry28);
+	FullAdder(a=nota112, b=false, c=carry28, sum=b1[12], carry=carry29);
+	FullAdder(a=nota113, b=false, c=carry29, sum=b1[13], carry=carry30);
+	FullAdder(a=nota114, b=false, c=carry30, sum=b1[14], carry=carry31);
+	FullAdder(a=nota115, b=false, c=carry31, sum=b1[15], carry=carry32);
+	
+	FullAdder(a=nota20, b=false, c=carry32, sum=b2[0], carry=carry33);
+	FullAdder(a=nota21, b=false, c=carry33, sum=b2[1], carry=carry34);
+	FullAdder(a=nota22, b=false, c=carry34, sum=b2[2], carry=carry35);
+	FullAdder(a=nota23, b=false, c=carry35, sum=b2[3], carry=carry36);
+	FullAdder(a=nota24, b=false, c=carry36, sum=b2[4], carry=carry37);
+	FullAdder(a=nota25, b=false, c=carry37, sum=b2[5], carry=carry38);
+	FullAdder(a=nota26, b=false, c=carry38, sum=b2[6], carry=carry39);
+	FullAdder(a=nota27, b=false, c=carry39, sum=b2[7], carry=carry40);
+	FullAdder(a=nota28, b=false, c=carry40, sum=b2[8], carry=carry41);
+	FullAdder(a=nota29, b=false, c=carry41, sum=b2[9], carry=carry42);
+	FullAdder(a=nota210, b=false, c=carry42, sum=b2[10], carry=carry43);
+	FullAdder(a=nota211, b=false, c=carry43, sum=b2[11], carry=carry44);
+	FullAdder(a=nota212, b=false, c=carry44, sum=b2[12], carry=carry45);
+	FullAdder(a=nota213, b=false, c=carry45, sum=b2[13], carry=carry46);
+	FullAdder(a=nota214, b=false, c=carry46, sum=b2[14], carry=carry47);
+	FullAdder(a=nota215, b=false, c=carry47, sum=b2[15], carry=carry48);
+}
